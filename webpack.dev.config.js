@@ -2,10 +2,11 @@
 
 
 var config = {
-  entry: ['./src/app.js'],
+  entry: ['./src/js/app.js'],
   output: {
-    path: __dirname + '/dist',
+    //path: __dirname + '/dist',
     filename: 'app.dev.js',
+    publicPath: 'dev'
   },
 
   module: {
@@ -14,7 +15,7 @@ var config = {
       loaders: ['babel'],
       include: __dirname + '/src/js'
     }]
-  }
+  },
 
   devtool: 'eval'
 };
