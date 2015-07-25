@@ -17,6 +17,10 @@ var config = {
     }]
   },
 
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+
   devtool: 'eval'
 };
 

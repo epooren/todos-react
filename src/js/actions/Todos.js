@@ -1,6 +1,6 @@
 
 
-var DispatcherApp = require('../dispatcher/App.js');
+var DispatcherApp = require('../dispatchers/App.js');
 var ConstantsTodos = require('../constants/Todos.js');
 
 

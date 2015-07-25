@@ -1,2 +1,6 @@
 
-console.log(1111111111);
+var React = require('react');
+var App = require('./components/App.jsx');
+
+React.render(<App />, document.getElementById('container'));
+

@@ -2,7 +2,7 @@
 
 var objectAssign = require('object-assign');
 var jEvent = require('jevent');
-var DispatcherApp = require('../dispatcher/App.js');
+var DispatcherApp = require('../dispatchers/App.js');
 var ConstantsTodos = require('../constants/Todos.js');
 var serviceTodos = require('../services/Todos.js');
 
@@ -48,10 +48,14 @@ function create(text) {
 
 
 function destroy(id) {
-  serviceTodos.destroy(id).then(function (id) {
-    delete _todos[id];
-    Todos.emit('change');
-  });
+  var success = (function (id) {
+    return function () {
+      delete _todos[id];
+      Todos.emit('change');
+    }
+  }(id));
+
+  serviceTodos.destroy(id).then(success);
 }
 
 function updateText(id, text) {
@@ -59,10 +63,14 @@ function updateText(id, text) {
     text: text.trim()
   };
 
-  serviceTodos.update(id, data).then(function () {
-    _todos[id].text = data.text;
-    Todos.emit('change');
-  });
+  var success = (function (id, data) {
+    return function () {
+      _todos[id].text = data.text;
+      Todos.emit('change');
+    };
+  }(id, data));
+
+  serviceTodos.update(id, data).then(success);
 }
 
 function toggleDone(id) {
@@ -70,10 +78,14 @@ function toggleDone(id) {
     done: !_todos[id].done
   };
 
-  serviceTodos.update(id, data).then(function () {
-    _todos[id].done = data.done;
-    Todos.emit('change');
-  });
+  var success = (function (id, data) {
+    return function () {
+      _todos[id].done = data.done;
+      Todos.emit('change');
+    };
+  }(id, data));
+
+  serviceTodos.update(id, data).then(success);
 }
 
 function toggleDoneAll() {
@@ -81,6 +93,7 @@ function toggleDoneAll() {
   var key;
 
   var data;
+  var success;
 
   for (key in _todos) {
     data = {
@@ -97,6 +110,7 @@ function toggleDoneAll() {
     serviceTodos.update(key, data).then(success);
   }
 }
+
 
 
 var Todos = objectAssign({}, jEvent, {
