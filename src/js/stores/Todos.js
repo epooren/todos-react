@@ -48,14 +48,10 @@ function create(text) {
 
 
 function destroy(id) {
-  var success = (function (id) {
-    return function () {
-      delete _todos[id];
-      Todos.emit('change');
-    }
-  }(id));
-
-  serviceTodos.destroy(id).then(success);
+  serviceTodos.destroy(id).then(function () {
+    delete _todos[id];
+    Todos.emit('change');
+  });
 }
 
 function updateText(id, text) {
@@ -63,14 +59,10 @@ function updateText(id, text) {
     text: text.trim()
   };
 
-  var success = (function (id, data) {
-    return function () {
-      _todos[id].text = data.text;
-      Todos.emit('change');
-    };
-  }(id, data));
-
-  serviceTodos.update(id, data).then(success);
+  serviceTodos.update(id, data).then(function () {
+    _todos[id].text = data.text;
+    Todos.emit('change');
+  });
 }
 
 function toggleDone(id) {
@@ -78,14 +70,10 @@ function toggleDone(id) {
     done: !_todos[id].done
   };
 
-  var success = (function (id, data) {
-    return function () {
-      _todos[id].done = data.done;
-      Todos.emit('change');
-    };
-  }(id, data));
-
-  serviceTodos.update(id, data).then(success);
+  serviceTodos.update(id, data).then(function () {
+    _todos[id].done = data.done;
+    Todos.emit('change');
+  });
 }
 
 function toggleDoneAll() {

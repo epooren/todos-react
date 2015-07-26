@@ -3,7 +3,9 @@ react版todos
 
 ---
 
-开发版：
+学习react.js
+
+运行：
 
 1. `npm install`
 2. `npm run dev`
