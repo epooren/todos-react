@@ -5,8 +5,8 @@ var config = {
   entry: ['./src/js/app.js'],
   output: {
     //path: __dirname + '/dist',
-    filename: 'app.dev.js',
-    publicPath: 'dev'
+    filename: 'app.js',
+    publicPath: 'assets'
   },
 
   module: {
