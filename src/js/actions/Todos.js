@@ -27,6 +27,13 @@ module.exports = {
     });
   },
 
+  syncText: function (id) {
+    DispatcherApp.dispatch({
+      actionType: ConstantsTodos.TODOS_SYNC_TEXT,
+      id: id
+    });
+  },
+
   toggleDone: function (id) {
     DispatcherApp.dispatch({
       actionType: ConstantsTodos.TODOS_TOGGLE_DONE,

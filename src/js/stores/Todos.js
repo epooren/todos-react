@@ -12,24 +12,6 @@ var CHANGE_EVENT = 'change';
 var _todos = {};
 
 
-// 从localStorage获取数据
-function getAll() {
-  serviceTodos.getAll().then(function (data) {
-    var result = {};
-    var todo;
-
-    for (var i = 0, len = data.length; i < len; i++) {
-      todo = data[i];
-      result[todo.id] = todo;
-    }
-
-    _todos = result;
-    Todos.emit('change');
-  });
-}
-
-
-
 function create(text) {
   text = text.trim();
   if (text === '') return;
@@ -59,11 +41,14 @@ function updateText(id, text) {
     text: text.trim()
   };
 
-  serviceTodos.update(id, data).then(function () {
-    _todos[id].text = data.text;
-    Todos.emit('change');
-  });
+  _todos[id].text = data.text;
+  Todos.emit('change');
 }
+
+function syncText(id) {
+  serviceTodos.update(id, _todos[id]);
+}
+
 
 function toggleDone(id) {
   var data = {
@@ -77,7 +62,7 @@ function toggleDone(id) {
 }
 
 function toggleDoneAll() {
-  var done = Todos.areDoneAll();
+  var done = Todos.doneAll();
   var key;
 
   var data;
@@ -102,7 +87,24 @@ function toggleDoneAll() {
 
 
 var Todos = objectAssign({}, jEvent, {
-  areDoneAll: function () {
+  // 从localStorage获取数据
+  fetchAll: function () {
+    serviceTodos.getAll().then(function (data) {
+      var result = {};
+      var todo;
+
+      for (var i = 0, len = data.length; i < len; i++) {
+        todo = data[i];
+        result[todo.id] = todo;
+      }
+
+      _todos = result;
+      Todos.emit('change');
+    });
+  },
+
+
+  doneAll: function () {
     var result = true;
     var key;
 
@@ -119,6 +121,8 @@ var Todos = objectAssign({}, jEvent, {
   getAll: function () {
     return _todos;
   }
+
+
 });
 
 DispatcherApp.register(function (action) {
@@ -139,9 +143,11 @@ DispatcherApp.register(function (action) {
     case ConstantsTodos.TODOS_TOGGLE_DONE_ALL:
       toggleDoneAll();
       break;
+    case ConstantsTodos.TODOS_SYNC_TEXT:
+      syncText(action.id);
+      break;
   }
 });
 
-getAll();
 
 module.exports = Todos;

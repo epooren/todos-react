@@ -8,10 +8,12 @@ var Main = require('./partials/Main.jsx');
 var Footer = require('./partials/Footer.jsx');
 
 
+StoreTodos.fetchAll();
+
 function getTodosState() {
   return {
     items: StoreTodos.getAll(),
-    done_all: StoreTodos.areDoneAll()
+    done_all: StoreTodos.doneAll()
   };
 }
 

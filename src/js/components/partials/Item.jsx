@@ -77,6 +77,8 @@ var Item = React.createClass({
   onSubmit: function (ev) {
     ev.preventDefault();
     this.refs.input.getDOMNode().blur();
+
+    ActionsTodos.syncText(this.props.item.id);
   },
 
   onToggle: function (ev) {
