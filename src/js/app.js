@@ -2,5 +2,7 @@
 var React = require('react');
 var App = require('./components/App.jsx');
 
-React.render(<App />, document.getElementById('container'));
+require('../css/todos.css');
+
+React.render(<App />, document.body);
 

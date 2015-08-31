@@ -1,12 +1,28 @@
-# todos-react
-react版todos
+# TODOS
+
+react.js版
+
+
+Created by [J&eacute;r&ocirc;me Gravel-Niquet](http://jgn.me/), I just rewritten it.
 
 ---
 
-学习react.js
+安装依赖：
 
-运行：
+```sh
+$ npm install
+```
 
-1. `npm install`
-2. `npm run dev`
-3. 浏览器访问localhost:3000
+运行开发模式
+
+```sh
+$ npm start
+```
+
+build源码
+
+```sh
+$npm run build
+```
+
+

@@ -87,7 +87,7 @@ var Item = React.createClass({
   },
 
   onDestroy: function () {
-    ActionsTodos.destroy(this.props.item.id);
+    if (confirm('确定要删除？')) ActionsTodos.destroy(this.props.item.id);
   },
 
   onEdit: function (ev) {

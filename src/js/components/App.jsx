@@ -34,12 +34,26 @@ var App = React.createClass({
     var state = this.state;
 
     return (
-      <div id="todoapp">
-        <Header />
-        <Main
-          items={state.items}
-          done_all={state.done_all} />
-        <Footer items={state.items} />
+      <div id="container">
+        <div id="todoapp">
+          <Header />
+          <Main
+            items={state.items}
+            done_all={state.done_all} />
+          <Footer items={state.items} />
+        </div>
+
+        <div id="instructions">
+          Double-click to edit a todo.
+        </div>
+
+        <div id="credits">
+          Created by
+          <br/>
+          <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
+          <br/>
+          Rewritten by: <a href="http://github.com/epooren/todos-react">daifee</a>.
+        </div>
       </div>
     );
   },

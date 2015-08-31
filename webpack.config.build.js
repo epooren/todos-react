@@ -1,10 +1,15 @@
 
+var webpack = require('webpack');
 
+
+var uglify = new webpack.optimize.UglifyJsPlugin({
+  compress: true
+});
 
 var config = {
   entry: './src/js/app.js',
   output: {
-    publicPath: 'assets',
+    path: 'assets',
     filename: 'bundle.js'
   },
 
@@ -24,11 +29,13 @@ var config = {
     ]
   },
 
+  plugins: [uglify],
+
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
 
-  devtool: 'eval'
+  devtool: 'source-map'
 };
 
 
